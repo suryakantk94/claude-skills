@@ -1,0 +1,22 @@
+{
+  "name": "claude-skills",
+  "version": "0.2.0",
+  "description": "Suryakant's personal Claude Code skills. First skill installs my portable zsh aliases on a new machine.",
+  "author": {
+    "name": "Suryakant Kashyap",
+    "url": "https://github.com/suryakantk94"
+  },
+  "homepage": "https://github.com/suryakantk94/claude-skills",
+  "repository": "https://github.com/suryakantk94/claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "skills",
+    "dotfiles",
+    "shell",
+    "aliases",
+    "zsh",
+    "machine-setup"
+  ]
+}

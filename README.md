@@ -1,25 +1,41 @@
-# claude-skills — personal zsh aliases
+# claude-skills
 
-My shell aliases, portable across machines. Clone this repo on a new computer, run the installer, and your aliases come with you.
+My personal [Claude Code](https://claude.com/claude-code) skills — a growing collection.
+Install the plugin once and Claude can run these on any machine.
 
-## Install
+## Skills
+
+| Skill | What it does |
+|---|---|
+| `install-aliases` | Installs my portable zsh aliases (`aliases.zsh`) into `~/.zshrc`. Say *"install my aliases"* on a new machine and Claude runs the bundled installer, then reports which optional tools (eza, zoxide, kubectx) are missing. |
+
+_More skills get added under `skills/<name>/` over time — they're auto-discovered._
+
+## Install the plugin
+
+```text
+/plugin marketplace add suryakantk94/claude-skills
+/plugin install claude-skills@claude-skills
+```
+
+> After installation, run `/reload-plugins` (or restart Claude Code) so the new skills register.
+
+## Just want the aliases (no Claude needed)
+
+The `install-aliases` skill bundles a plain installer you can run directly:
 
 ```bash
 git clone https://github.com/suryakantk94/claude-skills.git
 cd claude-skills
-./install.sh
+./skills/install-aliases/install.sh
 source ~/.zshrc
 ```
 
-`install.sh` appends a single `source` line to your `~/.zshrc` pointing at `aliases.zsh` in this repo (idempotent — safe to run twice). Because it *sources* the file rather than copying, a later `git pull` here updates your aliases everywhere.
+It appends a single `source` line to `~/.zshrc` pointing at `skills/install-aliases/aliases.zsh`
+(idempotent — safe to run twice). Because it *sources* the file, a later `git pull` updates your
+aliases everywhere.
 
-Prefer to wire it up by hand? Just add this to `~/.zshrc`:
-
-```zsh
-source "/path/to/claude-skills/aliases.zsh"
-```
-
-## What's included
+### Aliases included
 
 | Group | Aliases |
 |---|---|
@@ -29,18 +45,31 @@ source "/path/to/claude-skills/aliases.zsh"
 | Helm | `helmlogin` |
 | Fun | `LetsHaveFunJarvis` |
 
-See [`aliases.zsh`](aliases.zsh) for the exact definitions.
+### Optional dependencies
 
-## Dependencies
-
-Aliases that wrap external tools are **guarded** — if the tool isn't installed, the alias is skipped, so a fresh machine never ends up with a broken `ls` or `cd`. For full coverage:
+Tool-wrapping aliases are **guarded** — missing a tool just skips its alias (a fresh machine never gets a broken `ls`/`cd`):
 
 | Tool | Install | Used by |
 |---|---|---|
 | [eza](https://github.com/eza-community/eza) | `brew install eza` | `ls` |
-| [zoxide](https://github.com/ajeetdsouza/zoxide) | `brew install zoxide` + `eval "$(zoxide init zsh)"` in `~/.zshrc` | `cd` |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | `brew install zoxide` + `eval "$(zoxide init zsh)"` | `cd` |
 | [kubectx/kubens](https://github.com/ahmetb/kubectx) | `brew install kubectx` | `kc`, `kn` |
 | git `co` alias | `git config --global alias.co checkout` | `gcm`, `gcb` |
+
+## Adding a new skill
+
+Create `skills/<name>/SKILL.md` with frontmatter:
+
+```markdown
+---
+name: <name>
+description: One-line trigger description — when Claude should use this skill.
+---
+
+# <Title>
+
+Steps Claude follows. Bundle any helper files (scripts, configs) in the same folder.
+```
 
 ## License
 
